@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Settings
+gitDir="/Users/soorajsubrahmannian/Desktop/bash/Sprint"
+scriptloc = ''
+
+
+if [ -d "$gitDir" ]; then
+	cd $gitDir
+    git pull  
+    python sprint2_step2.py 
+
+else
+	echo "Git repository doesnt exist"
+	git clone 'https://github.com/smsubrahmannian/Sprint.git'
+	python sprint2_step2.py 
+fi
+
+
