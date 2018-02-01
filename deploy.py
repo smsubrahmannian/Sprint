@@ -2,10 +2,15 @@
 
 import paramiko
 import time
+import sys
 
-#Change these for your instance
-key_path = '/Users/davischum/Documents/classes/aws/sprint.pem'
-host = 'ec2-54-203-87-49.us-west-2.compute.amazonaws.com'
+# #Change these for your instance
+# key_path = '/Users/davischum/Documents/classes/aws/sprint.pem'
+# host = 'ec2-54-191-242-17.us-west-2.compute.amazonaws.com'
+
+key_path = sys.argv[1]
+host = sys.argv[2]
+# prefix = sys.argv[2]
 user = 'ec2-user'
 
 print "Connecting to box"
@@ -18,7 +23,10 @@ time.sleep(1)
 print 'Running commands\n'
 time.sleep(1)
 
-commands = ["pwd", "mkdir fartface", "ls" , "rm fartface", "rm -r fartface", "ls"]
+commands = ["if [ ! -d 'sprint' ]; then git clone https://github.com/smsubrahmannian/Sprint.git sprint; fi",
+			"crontab -l > mycron", "echo '* * * * * python sprint/sprint2_step2.py t' >> mycron",
+			"crontab mycron"]
+
 for command in commands:
 	print command
 	stdin, stdout, stderr = ssh.exec_command(command)
