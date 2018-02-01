@@ -4,9 +4,10 @@ import paramiko
 import time
 
 #Change these for your instance
-key_path = '/Users/davischum/Documents/classes/aws/sprint.pem'
+key_path = ''
 host = 'ec2-54-203-87-49.us-west-2.compute.amazonaws.com'
 user = 'ec2-user'
+git_repo =
 
 print "Connecting to box"
 ssh = paramiko.SSHClient()
