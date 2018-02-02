@@ -10,7 +10,7 @@ import sys
 
 key_path = sys.argv[1]
 host = sys.argv[2]
-prefix = sys.argv[2]
+prefix = sys.argv[3]
 user = 'ec2-user'
 
 def deploy(key_path, host, prefix):
@@ -25,8 +25,9 @@ def deploy(key_path, host, prefix):
 	print 'Running commands\n'
 	time.sleep(1)
 
+	crontab_command = "echo '* * * * * python sprint/sprint2_step2.py "+prefix+"' >> mycron"
 	commands = ["if [ ! -d 'sprint' ]; then git clone https://github.com/smsubrahmannian/Sprint.git sprint; fi",
-				"crontab -l > mycron", "echo '* * * * * python sprint/sprint2_step2.py t' >> mycron",
+				"crontab -l > mycron", crontab_command,
 				"crontab mycron"]
 
 	for command in commands:
