@@ -24,18 +24,21 @@ def write_json(prefix):
     """
     Collect all json files in the directory and process them using proc_line
     """
-    json_files = [ x for x in os.listdir(PATH) if x.startswith(prefix) ]
+    if os.path.exists(PATH):
 
-    with open(PATH+str(prefix)+'.txt','w') as text_file: # open file to write
+        json_files = [ x for x in os.listdir(PATH) if x.startswith(prefix) ]
 
-        for item in json_files: # process each file
+        with open(PATH+str(prefix)+'.txt','w') as text_file: # open file to write
 
-            with open(os.path.join(PATH, item)) as file:
+            for item in json_files: # process each file
 
-                for line in file:
-                    try: proc_line(line, text_file)
-                    except: pass
+                with open(os.path.join(PATH, item)) as file:
 
+                    for line in file:
+                        try: proc_line(line, text_file)
+                        except: pass
+                        
+    else: print("Directory " + PATH + " does not exist")
 #----------------------------------------------------#
 
 # run script
