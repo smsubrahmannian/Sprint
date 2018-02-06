@@ -16,15 +16,17 @@ def deploy(key_path, host, prefix):
 	try:
                 ssh.connect(hostname=host, username=user, key_filename=key_path)
                 print 'Connected\n'
-                time.sleep(1)
+                time.sleep(2)
 
                 print 'Running commands\n'
-                time.sleep(1)
+                time.sleep(2)
 
-                crontab_command = "echo '* * * * * python sprint/sprint2_step2.py "+prefix+"' >> mycron"
+                crontab_command = "echo '* * * * * python sprint/sprint2_step2.py " + prefix + "' >> mycron"
+                
                 commands = ["if [ ! -d 'sprint' ]; then git clone https://github.com/smsubrahmannian/Sprint.git sprint; fi",
                                         "rm -f -- /srv/runme/" + prefix + ".txt",
-                                        "crontab -l > mycron", crontab_command,
+                                        "crontab -l > mycron",
+                                        crontab_command,
                                         "crontab mycron"]
 
                 for command in commands:
@@ -35,9 +37,10 @@ def deploy(key_path, host, prefix):
                                 print out
                         if len(err) > 0:
                                 print err
-                        time.sleep(1)
+                        time.sleep(2)
 
                 ssh.close()
+                
         except: print("Connection error, check the pem file and/or server")
 
 

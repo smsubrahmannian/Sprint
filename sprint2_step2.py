@@ -39,13 +39,14 @@ def write_json(prefix):
                         except: pass
                         
     else: print("Directory " + PATH + " does not exist")
+
 #----------------------------------------------------#
 
 # run script
 PATH = "/srv/runme/"
 # PATH = expanduser("~") + dir
 
-if len(sys.argv)==1: 
+if len(sys.argv)==2: 
     PREFIX = sys.argv[1]
     write_json(PREFIX)
 else:
