@@ -1,7 +1,7 @@
 import os
 import json
 import sys
-# from os.path import expanduser
+from os.path import expanduser
 
 
 def proc_line(line, text_file):
@@ -36,11 +36,15 @@ def write_json(prefix):
                     try: proc_line(line, text_file)
                     except: pass
 
+#----------------------------------------------------#
 
-# run prefix
+# run script
 PATH = "/srv/runme/"
-# PATH = expanduser("~") + dir
-PREFIX = sys.argv[1]
+PATH = expanduser("~") + dir
 
-write_json(PREFIX)
+if len(sys.argv)==1: 
+    PREFIX = sys.argv[1]
+    write_json(PREFIX)
+else:
+    print("Missing prefix argument")
 
