@@ -1,7 +1,7 @@
 import os
 import json
 import sys
-from os.path import expanduser
+# from os.path import expanduser
 
 
 def proc_line(line, text_file):
@@ -36,11 +36,10 @@ def write_json(prefix):
                     try: proc_line(line, text_file)
                     except: pass
 
-    text_file.close()
 
 # run prefix
-dir = "/srv/runme/"
-PATH = expanduser("~") + dir
+PATH = "/srv/runme/"
+# PATH = expanduser("~") + dir
 PREFIX = sys.argv[1]
 
 write_json(PREFIX)
