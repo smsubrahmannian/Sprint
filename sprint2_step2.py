@@ -1,7 +1,7 @@
 import os
 import json
 import sys
-from os.path import expanduser
+# from os.path import expanduser
 
 
 def proc_line(line, text_file):
@@ -40,7 +40,7 @@ def write_json(prefix):
 
 # run script
 PATH = "/srv/runme/"
-PATH = expanduser("~") + dir
+# PATH = expanduser("~") + dir
 
 if len(sys.argv)==1: 
     PREFIX = sys.argv[1]
