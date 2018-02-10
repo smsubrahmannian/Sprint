@@ -15,13 +15,14 @@ def deploy(key_path, host, prefix):
 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	try:
                 ssh.connect(hostname=host, username=user, key_filename=key_path)
-                print 'Connected\n'
+                #ssh.invoke_shell()
+		print 'Connected\n'
                 time.sleep(2)
 
                 print 'Running commands\n'
                 time.sleep(2)
 
-                crontab_command = "echo '* * * * * python sprint/sprint2_step2.py " + prefix + "' >> mycron"
+                crontab_command = "echo '* * * * 5 python sprint/sprint2_step2.py " + prefix + "' >> mycron"
 
                 commands = ["if [ ! -d 'sprint' ]; then git clone https://github.com/smsubrahmannian/Sprint.git sprint; fi",
                                         "crontab -r",
