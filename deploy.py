@@ -22,7 +22,7 @@ def deploy(key_path, host, prefix):
                 time.sleep(2)
 
                 crontab_command = "echo '* * * * * python sprint/sprint2_step2.py " + prefix + "' >> mycron"
-                
+
                 commands = ["if [ ! -d 'sprint' ]; then git clone https://github.com/smsubrahmannian/Sprint.git sprint; fi",
                                         "rm -f -- /srv/runme/" + prefix + ".txt",
                                         "crontab -l > mycron",
@@ -40,12 +40,12 @@ def deploy(key_path, host, prefix):
                         time.sleep(2)
 
                 ssh.close()
-                
+
         except: print("Connection error, check the pem file and/or server")
 
 
 #---------------------------------------------------------------------------#
-        
+
 # check if all variables are provided
 if len(sys.argv)==4:
         key_path = sys.argv[1]
@@ -56,5 +56,5 @@ if len(sys.argv)==4:
 else:
         print("Missing parameters, please check!")
 
-        
+
 ## EOF ##
