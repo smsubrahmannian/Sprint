@@ -24,9 +24,10 @@ def deploy(key_path, host, prefix):
                 crontab_command = "echo '* * * * * python sprint/sprint2_step2.py " + prefix + "' >> mycron"
 
                 commands = ["if [ ! -d 'sprint' ]; then git clone https://github.com/smsubrahmannian/Sprint.git sprint; fi",
-                                        "rm -f -- /srv/runme/" + prefix + ".txt",
+                                        "crontab -r",
+                                        "rm -rf /srv/runme/" + prefix + ".txt",
                                         "crontab -l > mycron",
-                                        crontab_command,
+                                         crontab_command,
                                         "crontab mycron"]
 
                 for command in commands:
