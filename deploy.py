@@ -5,7 +5,7 @@ import time
 # import sys
 
 def deploy(key_path, host, prefix):
-
+	user = "testtest"
     print "Connecting to box"
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -45,23 +45,12 @@ def deploy(key_path, host, prefix):
 #---------------------------------------------------------------------------#
 
 # Input
-user = "ec2-user"
-key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-server_address = "ec2-54-245-199-99.us-west-2.compute.amazonaws.com"
-prefix = "t"
+# key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
+# server_address = "ec2-54-245-199-99.us-west-2.compute.amazonaws.com"
+# prefix = "t"
 # Call deploy
+
 deploy(key_path, server_address, prefix)
-
-
-# # check if all variables are provided
-# if len(sys.argv)==4:
-#         key_path = sys.argv[1]
-#         host = sys.argv[2]
-#         prefix = sys.argv[3]
-#         user = 'ec2-user' # ML: Isn't this going to be 'testtest'?
-#         deploy(key_path, host, prefix)
-# else:
-#         print("Missing parameters, please check!")
 
 
 ## EOF ##

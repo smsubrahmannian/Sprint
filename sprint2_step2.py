@@ -1,7 +1,6 @@
 import os
 import json
 import sys
-# from os.path import expanduser
 
 
 def proc_line(line, text_file):
@@ -33,18 +32,16 @@ def write_json(prefix):
             for item in json_files: # process each file
 
                 with open(os.path.join(PATH, item)) as file:
-
                     for line in file:
                         try: proc_line(line, text_file)
                         except: pass
                         
-    else: print("Directory " + PATH + " does not exist")
+    else: print("Directory " + PATH + " does not exist!")
 
 #----------------------------------------------------#
 
 # run script
 PATH = "/srv/runme/"
-# PATH = expanduser("~") + dir
 
 if len(sys.argv)==2: 
     PREFIX = sys.argv[1]
