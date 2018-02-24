@@ -19,7 +19,7 @@ def proc_line(line, text_file):
         age = json_text['prop']['age']
         if name != '' and age != '':
             text_file.write(str(name) + "\t" + str(age) + '\n')
-
+        else: print("Missing value for name/age")
     except (KeyError, ValueError): print("JSON format is invalid!") 
 
 
@@ -37,8 +37,8 @@ def write_json(prefix, path):
 
         for line in raw_file:
             try: proc_line(line, proc_file)
-            except: pass # TODO: Check what kind of error is this
-        
+            except (ValueError): print("No JSON object can be encoded") 
+
         raw_file.close()
         proc_file.close()
                         
