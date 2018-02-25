@@ -22,8 +22,7 @@ def receive_request():
         content = request.data
         if content is not None:
             LOGGER.info(content)
-            # write_log(PREFIX, content, PATH)  # call create_log
-            # write_json(PREFIX, PATH) # call proc_json
+            write_json(PREFIX, PATH) # call proc_json
 
     except Exception as e: print(e)
     return "Received data!"
@@ -31,7 +30,7 @@ def receive_request():
 
 if __name__ == '__main__':
 
-    PATH = "/Users/ThyKhueLy/msan603/00-sprint/"
+    PATH = "/Users/alvira/Desktop/businessComm/Sprint/Sprint2"
     PREFIX = sys.argv[1]
     log_filename = PATH + PREFIX + "/Raw.txt"
     LOGGER = logging.getLogger('MyLogger')

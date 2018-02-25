@@ -6,8 +6,6 @@ import sys
 # JSON File Process
 #-----------------------------------------------------
 
-# PATH = "/srv/runme/"
-
 def proc_line(line, text_file):
     """
     Extract name and age property from each json blob
@@ -20,31 +18,36 @@ def proc_line(line, text_file):
         if name != '' and age != '':
             text_file.write(str(name) + "\t" + str(age) + '\n')
         else: print("Missing value for name/age")
-    except (KeyError, ValueError): print("JSON format is invalid!") 
 
+    except (KeyError, ValueError): print("JSON format is invalid!")
 
-def write_json(prefix, path):
-    """
-    Read json blobs from Raw.txt
-    Process them using proc_line and write them to proc.txt
-    """
-    raw_file_path = path + str(prefix) + '/Raw.txt'
+def write_json(path, filename):
 
-    if os.path.exists(raw_file_path):
+    if os.path.exists(path+filename):
 
-        raw_file = open(raw_file_path,'r') # open file to write
-        proc_file = open(path + str(prefix) + '/proc.txt', 'w')
-
+        raw_file = open(path+filename, 'r')  # open file to write
+        proc_file = open(path, '/proc.txt', 'a')
         for line in raw_file:
-            try: proc_line(line, proc_file)
-            except (ValueError): print("No JSON object can be encoded") 
-
+            try:
+                proc_line(line, proc_file)
+            except (ValueError):
+                print("No JSON object can be encoded")
         raw_file.close()
         proc_file.close()
-                        
-    else: print("Directory " + path + " does not exist!")
 
 
+    else: print("No file exists")
 
+def proc_file(prefix, path):
+    files = [f for f in os.listdir(path + prefix)]
+
+    if len(files) == 1:
+        try: write_json(path+prefix, "Raw.txt")
+        except: pass
+
+    if len(files) > 1:
+        files = [f for f in os.listdir(path+prefix) if f.endswith(".log")]
+        last_file = sorted(files)[:-1]
+        write_json(path + prefix, last_file)
 
 
