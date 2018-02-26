@@ -1,5 +1,6 @@
 import sys
 import logging
+import os
 from logging.handlers import TimedRotatingFileHandler
 from flask import Flask, request
 from proc_json import *
@@ -47,15 +48,17 @@ def receive_request():
 if __name__ == '__main__':
 
     # TODO: change to /srv/runme/
-    i = sys.argv.index('server:app')
-    PREFIX = sys.argv[i+1]
+    # i = sys.argv.index('server:app')
+    PREFIX = sys.argv[1]
     PATH = "/home/ec2-user/"
 
     # create loggers
-    raw_filename = PATH + PREFIX + "/Raw.txt"
-    proc_filename = PATH + PREFIX + "/proc.txt"
+    if os.path.exists(PATH + PREFIX):
 
-    logger_raw = setup_logger(raw_filename, "logger_raw")
-    logger_proc = setup_logger(proc_filename, "logger_proc")
+        raw_filename = PATH + PREFIX + "/Raw.txt"
+        proc_filename = PATH + PREFIX + "/proc.txt"
+
+        logger_raw = setup_logger(raw_filename, "logger_raw")
+        logger_proc = setup_logger(proc_filename, "logger_proc")
 
     # app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
