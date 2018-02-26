@@ -47,8 +47,9 @@ def receive_request():
 if __name__ == '__main__':
 
     # TODO: change to /srv/runme/
+    i = sys.argv.index('server:app')
+    PREFIX = sys.argv[i+1]
     PATH = "/home/ec2-user/"
-    PREFIX = sys.argv[1]
 
     # create loggers
     raw_filename = PATH + PREFIX + "/Raw.txt"
@@ -57,4 +58,4 @@ if __name__ == '__main__':
     logger_raw = setup_logger(raw_filename, "logger_raw")
     logger_proc = setup_logger(proc_filename, "logger_proc")
 
-    app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
+    # app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)

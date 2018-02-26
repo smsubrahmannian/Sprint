@@ -24,13 +24,15 @@ def deploy(key_path, host, prefix):
         ssh.connect(hostname=host, username="ec2-user", key_filename=key_path)
         print('Connected')
 
-        github = 'https://github.com/smsubrahmannian/Sprint.git'
-        execute_command("rm -rf sprint; git clone %s sprint" % github, ssh) # clone git repo
-        execute_command('pkill python', ssh) # kill all processes with python
+        git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
+        execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh) # clone git repo
+        # execute_command('pkill python', ssh) # kill all processes with python
 
+        execute_command('gunicorn -D -b 0.0.0.0:8080 server:app %s' % prefix, ssh)
         print("Server is currently running\nPress Cltr+Z to stop")
-        server_file = 'sprint/Sprint2/receive_request.py '
-        execute_command('python ' + server_file + prefix, ssh) # set up server
+
+        # server_file = 'sprint/Sprint2/receive_request.py '
+        # execute_command('python ' + server_file + prefix, ssh) # set up server
 
         ssh.close()
 
