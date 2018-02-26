@@ -27,7 +27,7 @@ def deploy(key_path, host, prefix):
         git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
         execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh) # clone git repo
         # execute_command('pkill python', ssh) # kill all processes with python
-
+        execute_command("cd sprint/Sprint2" % git_repo, ssh)
         execute_command('gunicorn -D -b 0.0.0.0:8080 server:app %s' % prefix, ssh)
         print("Server is currently running\nPress Cltr+Z to stop")
 
