@@ -28,7 +28,7 @@ def deploy(key_path, host, prefix):
         git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
         execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh) # clone git repo
         execute_command('pkill python', ssh) # kill all processes with python
-        execute_command('pkill gunicorn', ssh)  # kill all processes with python
+        execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
         # gunicorn_command = 'gunicorn -D -b 0.0.0.0:8080 server:app %s' % prefix
         # execute_command('cd sprint/Sprint2; ' + gunicorn_command, ssh)
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     # key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
     key_path = "/Users/maisely/maise_tally.pem"
     server_address = "ec2-52-33-35-38.us-west-2.compute.amazonaws.com"
-    prefix = "t"
+    prefix = "storm"
     deploy(key_path, server_address, prefix)
 
 ## EOF ##

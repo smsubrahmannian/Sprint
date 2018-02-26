@@ -35,11 +35,9 @@ def receive_request():
     """
     try:
         content = request.data
-
-        if content is not None:
-            logger_raw.info(content) # add raw data to Raw.txt
-            processed_line = proc_request(content) # process the raw data
-            logger_proc.info(processed_line) # add processed data to proc.txt
+        logger_raw.info(content) # add raw data to Raw.txt
+        processed_line = proc_request(content) # process the raw data
+        logger_proc.info(processed_line) # add processed data to proc.txt
 
     except Exception as e: print(e)
     return "Received data"
@@ -61,4 +59,6 @@ if __name__ == '__main__':
         logger_raw = setup_logger(raw_filename, "logger_raw")
         logger_proc = setup_logger(proc_filename, "logger_proc")
 
-    # app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
+        app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
+
+    else: print("Directory %s does not exist" % (PATH + PREFIX))
