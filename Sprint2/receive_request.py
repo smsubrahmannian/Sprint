@@ -4,6 +4,9 @@ from logging.handlers import TimedRotatingFileHandler
 from flask import Flask, request
 from proc_json import *
 
+#-----------------------------------------------------
+# Setup Log Rotate
+#-----------------------------------------------------
 
 def setup_logger(log_filepath, logger_name):
     """
@@ -38,7 +41,7 @@ def receive_request():
             logger_proc.info(processed_line) # add processed data to proc.txt
 
     except Exception as e: print(e)
-    return "Recevied data"
+    return "Received data"
 
 
 if __name__ == '__main__':
