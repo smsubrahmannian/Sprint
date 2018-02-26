@@ -57,4 +57,4 @@ if __name__ == '__main__':
     logger_raw = setup_logger(raw_filename, "logger_raw")
     logger_proc = setup_logger(proc_filename, "logger_proc")
 
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)

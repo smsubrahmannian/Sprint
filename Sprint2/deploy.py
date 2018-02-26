@@ -1,38 +1,45 @@
 import paramiko
-import sys
+import os
+import subprocess
+import signal
+import socket
+
+def execute_command(command, client):
+    """
+    Execute a command given a ssh client
+    """
+    stdin, stdout, stderr = client.exec_command(command)
+    out, err = (stdout.read(), stderr.read())
+    if len(err) > 0: print(err)
+    return None
 
 
 def deploy(key_path, host, prefix):
+
     print("Connecting to box")
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    server_file = "sprint/Sprint2/receive_request.py " + prefix
 
     try:
         ssh.connect(hostname=host, username="ec2-user", key_filename=key_path)
-        print('Connected\n')
+        print('Connected')
 
-        commands = ["rm -rf sprint; git clone https://github.com/smsubrahmannian/Sprint.git sprint",
-                    "echo 'Server is currently running...'",
-                    "echo 'Press Ctrl+Z to stop'",
-                    "python " + server_file ]
+        github = 'https://github.com/smsubrahmannian/Sprint.git'
+        execute_command("rm -rf sprint; git clone %s sprint" % github, ssh) # clone git repo
+        execute_command('pkill python', ssh) # kill all processes with python
 
-        for command in commands:
-            stdin, stdout, stderr = ssh.exec_command(command)
-            out, err = (stdout.read(), stderr.read())
-            if len(out) > 0: print(out)
-            if len(err) > 0: print(err)
+        print("Server is currently running\nPress Cltr+Z to stop")
+        server_file = 'sprint/Sprint2/receive_request.py '
+        execute_command('python ' + server_file + prefix, ssh) # set up server
 
-        print("Server is shutting down...")
         ssh.close()
 
-    except:
-        print("Connection error, check the pem file and/or server")
-
+    except Exception as e: print(e)
 
 if __name__ == '__main__':
-    key_path = "/Users/davischum/Documents/classes/aws/sprint.pem"
-    server_address = "ec2-34-217-13-160.us-west-2.compute.amazonaws.com"
+
+    key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
+    server_address = "ec2-54-201-172-56.us-west-2.compute.amazonaws.com"
     prefix = "t"
     deploy(key_path, server_address, prefix)
 
