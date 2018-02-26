@@ -14,8 +14,8 @@ def deploy(key_path, host, prefix):
 
         commands = ["rm -rf sprint; git clone https://github.com/smsubrahmannian/Sprint.git sprint",
                     "echo 'Server is currently running...'",
-                    "echo 'Press Cltr+C to stop'",
-                    " " + server_file ]
+                    "echo 'Press Ctrl+Z to stop'",
+                    "python " + server_file ]
 
         for command in commands:
             stdin, stdout, stderr = ssh.exec_command(command)
@@ -31,8 +31,8 @@ def deploy(key_path, host, prefix):
 
 
 if __name__ == '__main__':
-    key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    server_address = "ec2-54-245-2-175.us-west-2.compute.amazonaws.com"
+    key_path = "/Users/davischum/Documents/classes/aws/sprint.pem"
+    server_address = "ec2-34-217-13-160.us-west-2.compute.amazonaws.com"
     prefix = "t"
     deploy(key_path, server_address, prefix)
 
