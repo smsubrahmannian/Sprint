@@ -25,8 +25,8 @@ def proc_line(line):
     json_text = json.loads(line)
 
     try: # extract name & age
-        name = json_text['name']
-        age = json_text['prop']['age']
+        name = json_text['name'].strip()
+        age = json_text['prop']['age'].strip()
 
         # check if name / age exists and with a correct format
         if name != '' and age != '':
