@@ -35,9 +35,6 @@ def deploy(key_path, host, prefix):
         execute_command('pkill python', ssh) # kill all processes with python
         execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
-        print("Server is currently running")
-        print("Press Cltr+Z to suspend and go to server_address:8080/shutdown to completely shut down the process")
-
         execute_command('python ' + server_file + prefix, ssh) # set up server
 
         ssh.close()

@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
     # TODO: change to /srv/runme/
     PREFIX = sys.argv[1]
-    PATH = "/srv/runme/"
+    PATH = "/home/ec2-user/"
 
     # create loggers
     if os.path.exists(PATH + PREFIX):
@@ -68,6 +68,9 @@ if __name__ == '__main__':
 
         logger_raw = setup_logger(raw_filename, "logger_raw")
         logger_proc = setup_logger(proc_filename, "logger_proc")
+
+        print("Server is currently running")
+        print("Press Cltr+Z to suspend and go to server_address:8080/shutdown to completely shut down the process")
 
         app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
 
