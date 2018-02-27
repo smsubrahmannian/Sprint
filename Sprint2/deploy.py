@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 
-#-----------------------------------------------------
-# Sprint 3
-# Members:
-#-----------------------------------------------------
-
 import paramiko
 import os
+import subprocess
+import signal
+import socket
 
 def execute_command(command, client):
     """
@@ -16,18 +14,10 @@ def execute_command(command, client):
     out, err = (stdout.read(), stderr.read())
     if len(out) > 0: print(out)
     if len(err) > 0: print(err)
-
     return None
 
 
 def deploy(key_path, host, prefix):
-    """
-    Connect to server
-    Build a Flask app server to receive and process POST requests
-    """
-    git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
-    server_file = 'sprint/Sprint2/server.py '
-    server_command = 'python ' + server_file + prefix
 
     print("Connecting to box")
     ssh = paramiko.SSHClient()
@@ -37,22 +27,18 @@ def deploy(key_path, host, prefix):
         ssh.connect(hostname=host, username="ec2-user", key_filename=key_path)
         print('Connected')
 
-        # clone git repo
-        execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh)
+        git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
+        execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh) # clone git repo
 
-        # kill all processes that can make port busy
-        execute_command('pkill python', ssh)
-        execute_command('pkill gunicorn', ssh)
-        execute_command('pkill screen', ssh)
+        execute_command('pkill python', ssh) # kill all processes with python
+        execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
-        # set up server within screen
-        # execute_command("screen -dmS sprintScreen", ssh)
-        # execute_command("screen -S sprintScreen -p 0 -X stuff 'cd sprint/Sprint2 \n'", ssh)
-        # execute_command("screen -S sprintScreen -p 0 -X stuff '" + server_command + "\n'", ssh)
+        # gunicorn_command = 'gunicorn -D -b 0.0.0.0:8080 server:app %s' % prefix
+        # execute_command('cd sprint/Sprint2; ' + gunicorn_command, ssh)
 
-        print("Server is currently running")
-        print("Go to server_address:8080/shutdown to completely shut down the process")
-        execute_command('python ' + server_file + prefix, ssh)  # set up server
+        print("Server is currently running\nPress Cltr+Z to stop")
+        server_file = 'sprint/Sprint2/server.py '
+        execute_command('python ' + server_file + prefix, ssh) # set up server
 
         ssh.close()
 
@@ -61,9 +47,8 @@ def deploy(key_path, host, prefix):
 if __name__ == '__main__':
 
     key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    server_address = "ec2-54-186-92-128.us-west-2.compute.amazonaws.com"
+    server_address = "ec2-54-202-4-108.us-west-2.compute.amazonaws.com"
     prefix = "storm"
     deploy(key_path, server_address, prefix)
-
 
 ## EOF ##

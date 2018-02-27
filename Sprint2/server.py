@@ -11,7 +11,7 @@ from proc_json import *
 
 def setup_logger(log_filepath, logger_name):
     """
-    Set up a logger that rotates every 2 minutes
+    Set up a logger that rotates every 30s
     """
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.INFO)
@@ -57,6 +57,7 @@ def shutdown():
 if __name__ == '__main__':
 
     # TODO: change to /srv/runme/
+    # i = sys.argv.index('server:app')
     PREFIX = sys.argv[1]
     PATH = "/home/ec2-user/"
 
@@ -68,9 +69,6 @@ if __name__ == '__main__':
 
         logger_raw = setup_logger(raw_filename, "logger_raw")
         logger_proc = setup_logger(proc_filename, "logger_proc")
-
-        print("Server is currently running")
-        print("Press Cltr+Z to suspend and go to server_address:8080/shutdown to completely shut down the process")
 
         app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
 
