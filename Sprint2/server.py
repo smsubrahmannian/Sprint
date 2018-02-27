@@ -40,7 +40,18 @@ def receive_request():
         logger_proc.info(processed_line) # add processed data to proc.txt
 
     except Exception as e: print(e)
-    return "Received data"
+    return "Received data!"
+
+
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    """
+    Shutting down server
+    """
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None: os._exit(0)
+    else: func()
+    return 'Server is shutting down...'
 
 
 if __name__ == '__main__':
@@ -62,3 +73,6 @@ if __name__ == '__main__':
         app.run(host='0.0.0.0', port=8080, debug=True, threaded=True)
 
     else: print("Directory %s does not exist" % (PATH + PREFIX))
+
+
+## EOF ##

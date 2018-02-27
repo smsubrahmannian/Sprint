@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import paramiko
 import os
 import subprocess
@@ -27,6 +29,7 @@ def deploy(key_path, host, prefix):
 
         git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
         execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh) # clone git repo
+
         execute_command('pkill python', ssh) # kill all processes with python
         execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
