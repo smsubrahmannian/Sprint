@@ -43,9 +43,8 @@ def deploy(key_path, host, prefix):
     except Exception as e: print(e)
 
 if __name__ == '__main__':
-
-    key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    server_address = "ec2-54-202-4-108.us-west-2.compute.amazonaws.com"
+    key_path = "/Users/alvira/Desktop/msanbizaa.pem"
+    server_address = "ec2-54-70-117-95.us-west-2.compute.amazonaws.com"
     prefix = "storm"
     deploy(key_path, server_address, prefix)
 
