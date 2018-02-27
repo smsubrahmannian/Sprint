@@ -47,7 +47,7 @@ def deploy(key_path, host, prefix):
 if __name__ == '__main__':
 
     key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    server_address = "ec2-54-202-4-108.us-west-2.compute.amazonaws.com"
+    server_address = "ec2-54-186-92-128.us-west-2.compute.amazonaws.com"
     prefix = "storm"
     deploy(key_path, server_address, prefix)
 
