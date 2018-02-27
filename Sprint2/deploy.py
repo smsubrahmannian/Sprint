@@ -24,7 +24,7 @@ def deploy(key_path, host, prefix):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
-        ssh.connect(hostname=host, username="ec2-user", key_filename=key_path)
+        ssh.connect(hostname=host, username="testtest", key_filename=key_path)
         print('Connected')
 
         git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
@@ -34,7 +34,7 @@ def deploy(key_path, host, prefix):
         execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
         print("Server is currently running\nPress Cltr+Z to stop")
-        print("Go to %s:8080/shutdown to completely shut down the process" % server_address)
+        print("Go to %s:8080/shutdown to completely shut down the process" % host)
         server_file = 'sprint/Sprint2/server.py '
         execute_command('python ' + server_file + prefix, ssh) # set up server
 
@@ -42,11 +42,11 @@ def deploy(key_path, host, prefix):
 
     except Exception as e: print(e)
 
-if __name__ == '__main__':
-
-    key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    server_address = "ec2-54-202-4-108.us-west-2.compute.amazonaws.com"
-    prefix = "storm"
-    deploy(key_path, server_address, prefix)
+# if __name__ == '__main__':
+#
+#     key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
+#     server_address = "ec2-54-202-4-108.us-west-2.compute.amazonaws.com"
+#     prefix = "storm"
+#     deploy(key_path, server_address, prefix)
 
 ## EOF ##
