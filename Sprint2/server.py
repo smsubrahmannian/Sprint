@@ -43,7 +43,7 @@ def receive_request():
     return "Received data!"
 
 
-@app.route('/shutdown', methods=['POST'])
+@app.route('/shutdown', methods=['GET', 'POST'])
 def shutdown():
     """
     Shutting down server
