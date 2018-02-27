@@ -33,9 +33,6 @@ def deploy(key_path, host, prefix):
         execute_command('pkill python', ssh) # kill all processes with python
         execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
-        # gunicorn_command = 'gunicorn -D -b 0.0.0.0:8080 server:app %s' % prefix
-        # execute_command('cd sprint/Sprint2; ' + gunicorn_command, ssh)
-
         print("Server is currently running\nPress Cltr+Z to stop")
         server_file = 'sprint/Sprint2/server.py '
         execute_command('python ' + server_file + prefix, ssh) # set up server
@@ -47,7 +44,7 @@ def deploy(key_path, host, prefix):
 if __name__ == '__main__':
 
     key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    server_address = "ec2-54-186-92-128.us-west-2.compute.amazonaws.com"
+    server_address = "ec2-54-202-4-108.us-west-2.compute.amazonaws.com"
     prefix = "storm"
     deploy(key_path, server_address, prefix)
 
