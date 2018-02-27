@@ -26,7 +26,7 @@ def deploy(key_path, host, prefix):
     Build a Flask app server to receive and process POST requests
     """
     git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
-    server_file = 'server.py '
+    server_file = 'sprint/Sprint2/server.py '
     server_command = 'python ' + server_file + prefix
 
     print("Connecting to box")
