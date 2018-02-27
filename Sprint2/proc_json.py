@@ -27,9 +27,11 @@ def proc_line(line):
     try: # extract name & age
         name = json_text['name']
         age = json_text['prop']['age']
-        # check if name / age exists
-        if name != '' and age != '':
+
+        # check if name / age exists and with a correct format
+        if name != '' and age != '' and name.isalpha() and age.isdigit():
             return str(name) + "\t" + str(age)
+
         else: print("Missing value for name/age")
 
     except (KeyError, ValueError):

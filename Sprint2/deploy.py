@@ -21,32 +21,43 @@ def deploy(key_path, host, prefix):
     Build a Flask app server to receive and process POST requests
     """
     git_repo = 'https://github.com/smsubrahmannian/Sprint.git'
-    server_file = 'sprint/Sprint2/server.py '
+    server_file = 'server.py '
+    server_command = 'python ' + server_file + prefix
 
     print("Connecting to box")
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
-        ssh.connect(hostname=host, username="testtest", key_filename=key_path)
+        ssh.connect(hostname=host, username="ec2-user", key_filename=key_path)
         print('Connected')
 
-        execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh) # clone git repo
-        execute_command('pkill python', ssh) # kill all processes with python
-        execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
+        # clone git repo
+        execute_command("rm -rf sprint; git clone %s sprint" % git_repo, ssh)
 
-        execute_command('python ' + server_file + prefix, ssh) # set up server
+        # kill all processes that can make port busy
+        execute_command('pkill python', ssh)
+        execute_command('pkill gunicorn', ssh)
+        execute_command('pkill screen', ssh)
+
+        # set up server within screen
+        execute_command("screen -dmS sprintScreen", ssh)
+        execute_command("screen -S sprintScreen -p 0 -X stuff 'cd sprint/Sprint2 \n'", ssh)
+        execute_command("screen -S sprintScreen -p 0 -X stuff '" + server_command + "\n'", ssh)
+
+        print("Server is currently running")
+        print("Go to server_address:8080/shutdown to completely shut down the process")
 
         ssh.close()
 
     except Exception as e: print(e)
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-    # key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
-    # server_address = "ec2-52-35-129-27.us-west-2.compute.amazonaws.com"
-    # prefix = "storm"
-    # deploy(key_path, server_address, prefix)
+    key_path = "/Users/ThyKhueLy/msan630/msan630_maisely.pem"
+    server_address = "ec2-54-186-92-128.us-west-2.compute.amazonaws.com"
+    prefix = "storm"
+    deploy(key_path, server_address, prefix)
 
 
 ## EOF ##
