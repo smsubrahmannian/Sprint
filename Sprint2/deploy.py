@@ -34,6 +34,7 @@ def deploy(key_path, host, prefix):
         execute_command('pkill gunicorn', ssh)  # kill all processes with gunicorn
 
         print("Server is currently running\nPress Cltr+Z to stop")
+        print("Go to %s:8080/shutdown to completely shut down the process" % server_address)
         server_file = 'sprint/Sprint2/server.py '
         execute_command('python ' + server_file + prefix, ssh) # set up server
 
