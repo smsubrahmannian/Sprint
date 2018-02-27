@@ -16,7 +16,7 @@ def setup_logger(log_filepath, logger_name):
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.INFO)
 
-    handler = TimedRotatingFileHandler(log_filepath, when="m", interval=2, backupCount=0)
+    handler = TimedRotatingFileHandler(log_filepath, when="s", interval=30, backupCount=0)
     handler.suffix = "%Y%m%d-%H%M%s.log"
     logger.addHandler(handler)
 

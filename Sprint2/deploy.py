@@ -46,12 +46,13 @@ def deploy(key_path, host, prefix):
         execute_command('pkill screen', ssh)
 
         # set up server within screen
-        execute_command("screen -dmS sprintScreen", ssh)
-        execute_command("screen -S sprintScreen -p 0 -X stuff 'cd sprint/Sprint2 \n'", ssh)
-        execute_command("screen -S sprintScreen -p 0 -X stuff '" + server_command + "\n'", ssh)
+        # execute_command("screen -dmS sprintScreen", ssh)
+        # execute_command("screen -S sprintScreen -p 0 -X stuff 'cd sprint/Sprint2 \n'", ssh)
+        # execute_command("screen -S sprintScreen -p 0 -X stuff '" + server_command + "\n'", ssh)
 
         print("Server is currently running")
         print("Go to server_address:8080/shutdown to completely shut down the process")
+        execute_command('python ' + server_file + prefix, ssh)  # set up server
 
         ssh.close()
 
